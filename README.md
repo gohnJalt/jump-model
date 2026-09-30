@@ -8,7 +8,7 @@ A daily risk monitor for Borsa Istanbul's XU100 index. After each BIST close it 
 
 It models XU100 in TRY and USDTRY **jointly**. A TRY-only monitor misreads lira crises: in Nov–Dec 2021 USDTRY rose about 80% while XU100 in TRY made new highs. Log returns satisfy r_USD = r_TRY − r_FX exactly, so the USD-investor view falls straight out of the bivariate model.
 
-The readings are published at **https://market-panel.breezeblocks.workers.dev** (`#/risk`).
+The readings are published at **https://marketpanel.breezeblocks.workers.dev** (`#/risk`).
 
 > **[`DESIGN.md`](DESIGN.md) is the source of truth.** It holds every decision (§0), every pass/fail criterion (each fixed *before* its study was run), the open questions (§12) and the full results log (§13). This README is a summary.
 
