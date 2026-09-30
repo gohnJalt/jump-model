@@ -6,3 +6,6 @@ graphify-out/
 
 CLAUDE.md
 .graphifyignore
+__pycache__/
+*.pyc
+.DS_Store
