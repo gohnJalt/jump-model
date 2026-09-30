@@ -1,0 +1,263 @@
+1/176 ('rec2', 0)
+2/176 ('rec3', 0)
+3/176 ('garch', 0)
+4/176 ('merton', 0)
+5/176 ('async', 0)
+6/176 ('disc', 0)
+7/176 ('rec2', 1)
+8/176 ('rec3', 1)
+9/176 ('garch', 1)
+10/176 ('merton', 1)
+11/176 ('async', 1)
+12/176 ('disc', 1)
+13/176 ('rec2', 2)
+14/176 ('rec3', 2)
+15/176 ('garch', 2)
+16/176 ('merton', 2)
+17/176 ('async', 2)
+18/176 ('disc', 2)
+19/176 ('rec2', 3)
+20/176 ('rec3', 3)
+21/176 ('garch', 3)
+22/176 ('merton', 3)
+23/176 ('async', 3)
+24/176 ('disc', 3)
+25/176 ('rec2', 4)
+26/176 ('rec3', 4)
+27/176 ('garch', 4)
+28/176 ('merton', 4)
+29/176 ('async', 4)
+30/176 ('disc', 4)
+31/176 ('rec2', 5)
+32/176 ('rec3', 5)
+33/176 ('garch', 5)
+34/176 ('merton', 5)
+35/176 ('async', 5)
+36/176 ('disc', 5)
+37/176 ('rec2', 6)
+38/176 ('rec3', 6)
+39/176 ('garch', 6)
+40/176 ('merton', 6)
+41/176 ('async', 6)
+42/176 ('disc', 6)
+43/176 ('rec2', 7)
+44/176 ('rec3', 7)
+45/176 ('garch', 7)
+46/176 ('merton', 7)
+47/176 ('async', 7)
+48/176 ('disc', 7)
+49/176 ('rec2', 8)
+50/176 ('rec3', 8)
+51/176 ('garch', 8)
+52/176 ('merton', 8)
+53/176 ('async', 8)
+54/176 ('disc', 8)
+55/176 ('rec2', 9)
+56/176 ('rec3', 9)
+57/176 ('garch', 9)
+58/176 ('merton', 9)
+59/176 ('async', 9)
+60/176 ('disc', 9)
+61/176 ('rec2', 10)
+62/176 ('rec3', 10)
+63/176 ('garch', 10)
+64/176 ('merton', 10)
+65/176 ('async', 10)
+66/176 ('disc', 10)
+67/176 ('rec2', 11)
+68/176 ('rec3', 11)
+69/176 ('garch', 11)
+70/176 ('merton', 11)
+71/176 ('async', 11)
+72/176 ('disc', 11)
+73/176 ('rec2', 12)
+74/176 ('rec3', 12)
+75/176 ('garch', 12)
+76/176 ('merton', 12)
+77/176 ('async', 12)
+78/176 ('disc', 12)
+79/176 ('rec2', 13)
+80/176 ('rec3', 13)
+81/176 ('garch', 13)
+82/176 ('merton', 13)
+83/176 ('async', 13)
+84/176 ('disc', 13)
+85/176 ('rec2', 14)
+86/176 ('rec3', 14)
+87/176 ('garch', 14)
+88/176 ('merton', 14)
+89/176 ('async', 14)
+90/176 ('disc', 14)
+91/176 ('rec2', 15)
+92/176 ('rec3', 15)
+93/176 ('garch', 15)
+94/176 ('merton', 15)
+95/176 ('async', 15)
+96/176 ('disc', 15)
+97/176 ('rec2', 16)
+98/176 ('rec3', 16)
+99/176 ('garch', 16)
+100/176 ('merton', 16)
+101/176 ('async', 16)
+102/176 ('disc', 16)
+103/176 ('rec2', 17)
+104/176 ('rec3', 17)
+105/176 ('garch', 17)
+106/176 ('merton', 17)
+107/176 ('async', 17)
+108/176 ('disc', 17)
+109/176 ('rec2', 18)
+110/176 ('rec3', 18)
+111/176 ('garch', 18)
+112/176 ('merton', 18)
+113/176 ('async', 18)
+114/176 ('disc', 18)
+115/176 ('rec2', 19)
+116/176 ('rec3', 19)
+117/176 ('garch', 19)
+118/176 ('merton', 19)
+119/176 ('async', 19)
+120/176 ('disc', 19)
+121/176 ('rec2', 20)
+122/176 ('rec3', 20)
+123/176 ('garch', 20)
+124/176 ('merton', 20)
+125/176 ('async', 20)
+126/176 ('disc', 20)
+127/176 ('rec2', 21)
+128/176 ('rec3', 21)
+129/176 ('garch', 21)
+130/176 ('merton', 21)
+131/176 ('async', 21)
+132/176 ('disc', 21)
+133/176 ('rec2', 22)
+134/176 ('rec3', 22)
+135/176 ('garch', 22)
+136/176 ('merton', 22)
+137/176 ('async', 22)
+138/176 ('disc', 22)
+139/176 ('rec2', 23)
+140/176 ('rec3', 23)
+141/176 ('garch', 23)
+142/176 ('merton', 23)
+143/176 ('async', 23)
+144/176 ('disc', 23)
+145/176 ('rec2', 24)
+146/176 ('rec3', 24)
+147/176 ('rec2', 25)
+148/176 ('rec3', 25)
+149/176 ('rec2', 26)
+150/176 ('rec3', 26)
+151/176 ('rec2', 27)
+152/176 ('rec3', 27)
+153/176 ('rec2', 28)
+154/176 ('rec3', 28)
+155/176 ('rec2', 29)
+156/176 ('rec3', 29)
+157/176 ('rec2', 30)
+158/176 ('rec3', 30)
+159/176 ('rec2', 31)
+160/176 ('rec3', 31)
+161/176 ('rec2', 32)
+162/176 ('rec3', 32)
+163/176 ('rec2', 33)
+164/176 ('rec3', 33)
+165/176 ('rec2', 34)
+166/176 ('rec3', 34)
+167/176 ('rec2', 35)
+168/176 ('rec3', 35)
+169/176 ('rec2', 36)
+170/176 ('rec3', 36)
+171/176 ('rec2', 37)
+172/176 ('rec3', 37)
+173/176 ('rec2', 38)
+174/176 ('rec3', 38)
+175/176 ('rec2', 39)
+176/176 ('rec3', 39)
+
+## rec2  (true K=2, R=40)
+sig  truth [[0.169, 0.083], [0.298, 0.187]]
+     rel.bias [[-0.0, -0.0], [0.01, 0.01]]
+     rel.RMSE [[0.02, 0.02], [0.05, 0.03]]
+dur  truth [61.092, 17.328]
+     rel.bias [0.02, -0.02]
+     rel.RMSE [0.19, 0.16]
+lam  truth [[1.0, 1.0, 20.0], [20.0, 12.162, 20.0]]
+     rel.bias [[0.15, 0.26, 0.01], [0.02, 0.06, -0.22]]
+     rel.RMSE [[1.25, 0.61, 0.15], [0.33, 0.32, 0.51]]
+rho  truth [-0.48, -0.58] mean est [-0.48, -0.58]
+rhoC truth -0.73 mean est -0.75
+filtered accuracy 0.912  | jump precision {'E': np.float64(0.71), 'F': np.float64(0.88), 'C': np.float64(0.7)}  recall {'E': np.float64(0.16), 'F': np.float64(0.48), 'C': np.float64(0.26)}
+
+## rec3  (true K=3, R=40)
+sig  truth [[0.151, 0.07], [0.227, 0.12], [0.336, 0.299]]
+     rel.bias [[-0.0, 0.01], [0.01, 0.01], [0.01, 0.0]]
+     rel.RMSE [[0.02, 0.02], [0.02, 0.03], [0.06, 0.06]]
+dur  truth [35.5, 35.844, 18.364]
+     rel.bias [-0.06, -0.02, 0.05]
+     rel.RMSE [0.16, 0.17, 0.38]
+lam  truth [[1.0, 1.0, 9.748], [3.888, 1.0, 20.0], [20.0, 18.782, 20.0]]
+     rel.bias [[0.37, 0.12, -0.1], [0.29, 0.22, -0.13], [-0.25, -0.04, -0.48]]
+     rel.RMSE [[1.42, 0.52, 0.36], [1.12, 0.65, 0.36], [0.56, 0.37, 0.7]]
+rho  truth [-0.44, -0.56, -0.55] mean est [-0.45, -0.56, -0.55]
+rhoC truth -0.73 mean est -0.78
+filtered accuracy 0.834  | jump precision {'E': np.float64(0.7), 'F': np.float64(0.88), 'C': np.float64(0.71)}  recall {'E': np.float64(0.27), 'F': np.float64(0.51), 'C': np.float64(0.15)}
+
+## disc  (true K=2, R=24)
+sig  truth [[0.169, 0.083], [0.298, 0.187]]
+     rel.bias [[-0.0, -0.0], [-0.01, -0.01]]
+     rel.RMSE [[0.01, 0.01], [0.04, 0.04]]
+dur  truth [61.092, 17.328]
+     rel.bias [0.01, -0.03]
+     rel.RMSE [0.2, 0.16]
+lam  truth [[1.0, 1.0, 20.0], [20.0, 12.162, 20.0]]
+     rel.bias [[0.13, -0.06, -0.02], [-0.08, -0.05, 0.01]]
+     rel.RMSE [[1.22, 0.42, 0.18], [0.33, 0.27, 0.35]]
+rho  truth [-0.48, -0.58] mean est [-0.48, -0.56]
+rhoC truth -0.73 mean est -0.74
+filtered accuracy 0.910  | jump precision {'E': np.float64(0.72), 'F': np.float64(0.9), 'C': np.float64(0.71)}  recall {'E': np.float64(0.17), 'F': np.float64(0.46), 'C': np.float64(0.27)}
+
+## async  (true K=2, R=24)
+sig  truth [[0.169, 0.083], [0.298, 0.187]]
+     rel.bias [[0.0, 0.01], [0.0, -0.0]]
+     rel.RMSE [[0.02, 0.02], [0.04, 0.04]]
+dur  truth [61.092, 17.328]
+     rel.bias [-0.17, -0.08]
+     rel.RMSE [0.2, 0.16]
+lam  truth [[1.0, 1.0, 20.0], [20.0, 12.162, 20.0]]
+     rel.bias [[1.55, 0.3, -0.14], [0.09, 0.05, -0.21]]
+     rel.RMSE [[2.18, 0.87, 0.23], [0.25, 0.33, 0.49]]
+rho  truth [-0.48, -0.58] mean est [-0.35, -0.42]
+rhoC truth -0.73 mean est -0.67
+filtered accuracy 0.898  | jump precision {'E': np.float64(0.5), 'F': np.float64(0.63), 'C': np.float64(0.7)}  recall {'E': np.float64(0.16), 'F': np.float64(0.34), 'C': np.float64(0.18)}
+rec2   K picked by bic: {2: 40}
+rec2   K picked by oos: {2: 31, 3: 9}
+rec3   K picked by bic: {2: 1, 3: 39}
+rec3   K picked by oos: {3: 32, 4: 8}
+merton K picked by bic: {1: 24}
+merton K picked by oos: {1: 22, 2: 2}
+garch  K picked by bic: {3: 9, 4: 15}
+garch  K picked by oos: {3: 4, 4: 20}
+garch fit K=1: mean λ/yr E,F,C by regime [[23.7, 25.0, 20.0]]  switches/yr 0.0
+garch fit K=2: mean λ/yr E,F,C by regime [[6.9, 15.4, 6.7], [22.3, 22.2, 20.1]]  switches/yr 13.7
+garch fit K=3: mean λ/yr E,F,C by regime [[4.1, 10.7, 4.3], [7.6, 17.2, 11.4], [22.1, 16.3, 20.7]]  switches/yr 20.8
+
+## GATE (DESIGN §6.1a)
+PASS  rec2 sig: max|bias| 0.01
+PASS  rec2 dur: max|bias| 0.02
+FAIL  rec2 lam: max|bias| 0.26, max RMSE 1.25
+PASS  rec2 filtered accuracy: 0.912
+PASS  rec2 jump precision: {'E': np.float64(0.71), 'F': np.float64(0.88), 'C': np.float64(0.7)}
+PASS  rec3 sig: max|bias| 0.01
+PASS  rec3 dur: max|bias| 0.06
+FAIL  rec3 lam: max|bias| 0.48, max RMSE 1.42
+FAIL  rec3 filtered accuracy: 0.834
+FAIL  rec3 jump precision: {'E': np.float64(0.7), 'F': np.float64(0.88), 'C': np.float64(0.71)}
+PASS  rec2 K-selection (bic): 100% correct
+FAIL  rec2 K-selection (oos): 78% correct
+PASS  rec3 K-selection (bic): 98% correct
+PASS  rec3 K-selection (oos): 80% correct
+PASS  merton K-selection (bic): 100% correct
+PASS  merton K-selection (oos): 92% correct
+FAIL  garch K-selection (bic): picked {3: 9, 4: 15}
+FAIL  garch K-selection (oos): picked {3: 4, 4: 20}

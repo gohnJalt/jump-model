@@ -1,0 +1,30 @@
+done MSGJ1-t
+done hold
+# MSGJ1-t vs MSGJ1, DESIGN §8.5 (holdout part NOT blind)
+
+Pass/fail: V1 LR at 1%: PASS, V2 DM vs MSGJ1 > 0 (validation): PASS, V3 VaR/ES (validation): PASS, H no §8.4 criterion worse (seen holdout): PASS
+
+V1 burn-in: MSGJ1 ll 7179.3, MSGJ1-t ll 7186.6 (nu 8.5) -> LR 14.7, p 0.00013
+nu over refits: validation median 10.1, holdout median 6.4 (range 6.1..12.8)
+
+## Validation 2013-2019
+DM log score vs MSGJ1: E 0.46, F 0.90, USD 0.67;  vs GJR-t: E 0.70, F 0.96, USD 1.63
+VaR rejections 1 of 12; Z2 p at 2.5%: E 0.53, F 0.98, USD 0.44
+E 1.0%: hits 0.0097, Kupiec 0.894, CC 0.839
+E 2.5%: hits 0.0245, Kupiec 0.893, CC 0.694
+F 1.0%: hits 0.0080, Kupiec 0.377, CC 0.605
+F 2.5%: hits 0.0160, Kupiec 0.009, CC 0.022
+USD 1.0%: hits 0.0108, Kupiec 0.731, CC 0.415
+USD 2.5%: hits 0.0239, Kupiec 0.773, CC 0.640
+
+## Holdout 2020+ (seen; veto only)
+DM log score vs MSGJ1: E 1.99, F 2.93, USD 2.40;  vs GJR-t: E 1.16, F 0.09, USD -1.70 (MSGJ1 vs GJR-t: E -1.13, F -2.47, USD -3.03)
+VaR rejections 2 of 12 (MSGJ1: 2); Z2 p at 2.5%: E 0.03, F 0.95, USD 0.43 (MSGJ1: E 0.01, F 0.87, USD 0.56)
+E 1.0%: hits 0.0155, Kupiec 0.037, CC 0.075
+E 2.5%: hits 0.0304, Kupiec 0.173, CC 0.223
+F 1.0%: hits 0.0071, Kupiec 0.215, CC 0.425
+F 2.5%: hits 0.0113, Kupiec 0.000, CC 0.000
+USD 1.0%: hits 0.0131, Kupiec 0.224, CC 0.356
+USD 2.5%: hits 0.0232, Kupiec 0.635, CC 0.530
+
+No-worse-than-MSGJ1 on §8.4: coverage yes, ES yes, log score yes

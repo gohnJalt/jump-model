@@ -1,0 +1,8 @@
+.env
+
+data/
+reports/
+graphify-out/
+
+CLAUDE.md
+.graphifyignore

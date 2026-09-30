@@ -1,0 +1,144 @@
+# §8.8 robustness battery (MSGJ1-t), F19 = fit on 2008-08-01 → 2019-12-31
+
+**A1** 20 starts: 20 within 0.5 of the best (18750.67); F19 18750.67. Spread of all starts: 18750.6 … 18750.7.
+
+**A2** parametric bootstrap, B = 200 (90% percentile CIs):
+
+| Param | F19 | boot median | 5% | 95% | |median − F19| / CI width |
+|---|---|---|---|---|---|
+| nu | 8.097 | 8.707 | 7.336 | 12.07 | 0.13 |
+| rho | -0.5216 | -0.5234 | -0.5462 | -0.4946 | 0.04 |
+| rhoC (reported) | -0.9999 | -1 | -1 | -0.8956 | 0.00 |
+| mu_E (reported) | 0.0009377 | 0.000923 | 0.0005117 | 0.001286 | 0.02 |
+| sig_E (reported) | 0.01293 | 0.01247 | 0.01119 | 0.01373 | 0.18 |
+| alpha_E | 0.02405 | 0.02244 | 0.006175 | 0.03788 | 0.05 |
+| gamma_E | 0.05537 | 0.0538 | 0.03309 | 0.07786 | 0.03 |
+| beta_E | 0.911 | 0.9113 | 0.8836 | 0.9341 | 0.01 |
+| jm_E (reported) | -0.02694 | -0.02358 | -0.05849 | 0.0004503 | 0.06 |
+| js_E (reported) | 0.02589 | 0.0257 | 0.02297 | 0.03454 | 0.02 |
+| mC_E (reported) | -0.004485 | -0.003241 | -0.04115 | 0.01286 | 0.02 |
+| sC_E (reported) | 0.02586 | 0.02623 | 0.02332 | 0.04641 | 0.02 |
+| pers_E (reported) | 0.9628 | 0.9602 | 0.9434 | 0.9738 | 0.09 |
+| mu_F (reported) | 0.0002688 | 0.0002761 | 8.624e-05 | 0.0004635 | 0.02 |
+| sig_F (reported) | 0.006468 | 0.006289 | 0.005589 | 0.007141 | 0.12 |
+| alpha_F | 0.03192 | 0.03065 | 0.01308 | 0.0472 | 0.04 |
+| gamma_F | 0.06509 | 0.06531 | 0.04099 | 0.08845 | 0.00 |
+| beta_F | 0.908 | 0.9067 | 0.8835 | 0.927 | 0.03 |
+| jm_F (reported) | 0.01717 | 0.002055 | -0.01612 | 0.03363 | 0.30 |
+| js_F (reported) | 0.01358 | 0.0128 | 0.01126 | 0.01496 | 0.21 |
+| mC_F (reported) | 0.01013 | 0.009302 | -0.002589 | 0.03492 | 0.02 |
+| sC_F (reported) | 0.01907 | 0.01883 | 0.01256 | 0.03076 | 0.01 |
+| pers_F (reported) | 0.9725 | 0.9699 | 0.9581 | 0.9787 | 0.13 |
+| lam_E (reported) | 0.005827 | 0.006602 | 0.0005852 | 0.02603 | 0.03 |
+| lam_F (reported) | 6.972e-05 | 0.0001382 | 1.908e-06 | 0.009724 | 0.01 |
+| lam_C (reported) | 0.009161 | 0.009478 | 0.001371 | 0.02402 | 0.01 |
+
+**A3** validation: max persistence E 0.9707, F 0.9872; nu 8.2 … 12.8; VaR revision at refits median 0.42%, 95th pct 3.18%, max 11.9%.
+**A3** holdout (not blind): max persistence E 0.9630, F 0.9990; nu 6.1 … 9.3; VaR revision at refits median 0.57%, 95th pct 6.44%, max 33.1%.
+
+**A4** 10-day 1% VaR, relative Monte Carlo sd over 20 seeds (max over 10 origins): E 1.00%, USD 0.83%
+
+**B1/B2/B3** validation log score, DM of production vs variant (> 0 = production better), and coverage:
+
+| Variant | DM E | DM F | DM USD | Kupiec rejections (of 6) |
+|---|---|---|---|---|
+| roll5 | -2.54 | 1.37 | -0.82 | 0 |
+| roll8 | -1.39 | 0.68 | -0.16 | 1 |
+| R63 | 0.03 | 0.76 | 0.23 | 1 |
+| nojump | 1.13 | 0.30 | 1.32 | 1 |
+
+**B3** jumps vs none on F19 data: LR 12.79, bootstrap p 0.080 (B = 200; null LR 95th pct 14.03); validation DM 1.13, 0.30, 1.32 → **jumps NOT supported**.
+
+**B4** hit rates by sub-period (Kupiec p in brackets):
+
+| Period | E 1.0% | E 2.5% | F 1.0% | F 2.5% | USD 1.0% | USD 2.5% |
+|---|---|---|---|---|---|---|
+| 2013–15 | 1.33% (0.39) | 2.79% (0.62) | 0.53% (0.15) | 1.06% (0.00) | 1.19% (0.60) | 2.39% (0.84) |
+| 2016–17 | 0.60% (0.33) | 1.79% (0.28) | 1.19% (0.67) | 2.39% (0.87) | 0.99% (0.99) | 1.59% (0.16) |
+| 2018–19 | 0.80% (0.65) | 2.61% (0.88) | 0.80% (0.65) | 1.61% (0.17) | 1.00% (0.99) | 3.21% (0.33) |
+| 2020–21 (not blind) | 2.40% (0.01) | 3.41% (0.22) | 1.80% (0.10) | 2.61% (0.88) | 2.20% (0.02) | 3.21% (0.33) |
+| 2022–23 (not blind) | 1.60% (0.21) | 4.40% (0.01) | 0.40% (0.13) | 0.60% (0.00) | 1.40% (0.40) | 2.80% (0.67) |
+| 2024–26 (not blind) | 0.88% (0.75) | 1.76% (0.19) | 0.15% (0.01) | 0.44% (0.00) | 0.59% (0.24) | 1.32% (0.03) |
+
+Validation rejections: 1 of 18.
+
+**B5** jump-size floor c (reported):
+
+| c | loglik | λ_E | λ_F | λ_C | js_E | js_F | 1% VaR E (2019-12-31) |
+|---|---|---|---|---|---|---|---|
+| 2 | 18750.67 | 0.0058 | 0.0001 | 0.0092 | 0.0259 | 0.0136 | -2.62% |
+| 1.5 | 18753.18 | 0.0061 | 0.0003 | 0.0603 | 0.0236 | 0.0087 | -3.07% |
+| 3 | 18748.57 | 0.0020 | 0.0000 | 0.0040 | 0.0401 | 0.0217 | -2.49% |
+
+**C1–C4** economic signs (CI from A2; refit shares = share of refits with the expected sign):
+
+- C1 leverage γ_E > 0: F19 0.055, 90% CI [0.033, 0.078], validation refits 100%, holdout refits 100%.
+- C2 lira asymmetry γ_F > 0: F19 0.065, 90% CI [0.041, 0.088], validation refits 100%, holdout refits 100%.
+- C3 ρ < 0: F19 -0.522, 90% CI [-0.546, -0.495], validation refits 100%, holdout refits 100%.
+- C4 co-jump m_C,E < 0 < m_C,F: F19 (-0.0045, 0.0101); validation refits 88%, holdout refits 100%. FX-only jump mean jm_F: F19 0.0172, holdout refits > 0: 84%.
+
+**C5** 10 highest P(any jump) days, 2008-08 → 2019: 2 of 10 in an event window.
+
+| Date | P(jump) | rE % | rF % | Event window |
+|---|---|---|---|---|
+| 2009-11-26 | 0.505 | -0.41 | 2.18 |  |
+| 2011-08-05 | 0.563 | -5.30 | 0.12 | US downgrade / euro crisis |
+| 2013-01-28 | 0.655 | -4.33 | 0.24 |  |
+| 2013-06-03 | 0.897 | -11.06 | 0.73 | Taper tantrum then 31 May Gezi |
+| 2014-07-31 | 0.937 | -2.48 | 2.59 |  |
+| 2015-06-08 | 0.785 | -5.18 | 3.45 |  |
+| 2015-11-02 | 0.592 | 5.26 | -3.14 |  |
+| 2017-10-09 | 0.618 | -2.76 | 3.10 |  |
+| 2019-03-22 | 0.984 | -3.52 | 4.09 |  |
+| 2019-03-27 | 0.700 | -5.84 | -0.77 |  |
+
+Holdout (not blind), real-time params: 2020-08-06 (rE -5.4%, rF 3.7%); 2021-03-22 (rE -10.3%, rF 8.9%); 2021-12-17 (rE -8.9%, rF 4.9%); 2022-11-10 (rE 2.4%, rF -0.5%); 2023-05-30 (rE 3.8%, rF 1.5%); 2023-08-24 (rE -1.5%, rF -5.2%); 2024-02-02 (rE 0.2%, rF 0.4%); 2024-03-21 (rE 2.1%, rF -1.8%); 2024-06-04 (rE -1.8%, rF 1.0%); 2025-03-19 (rE -9.1%, rF 3.6%)
+
+**C6** implied daily sd (simulated, 10M days) E 1.45% vs sample 1.56%; F 0.77% vs 0.92%. First computation (σ² + jump variance, omits jump feedback into GJR; a bug): E 1.35%, F 0.68%.
+
+**C7** FX share of XU100-in-USD variance: validation median 29%, holdout median 16%, max 82% on 2021-11-24.
+
+**D1–D3** PIT diagnostics (p-values):
+
+| Sample | Target | Berkowitz | LB z | LB z² | ARCH-LM |
+|---|---|---|---|---|---|
+| validation | E | 0.014 | 0.339 | 0.040 | 0.025 |
+| validation | F | 0.009 | 0.334 | 0.042 | 0.071 |
+| validation | USD | 0.008 | 0.550 | 0.514 | 0.289 |
+| holdout (not blind) | E | 0.003 | 0.007 | 0.314 | 0.168 |
+| holdout (not blind) | F | 0.000 | 0.000 | 0.000 | 0.000 |
+| holdout (not blind) | USD | 0.297 | 0.094 | 0.099 | 0.032 |
+
+**D4** 1% / 2.5% VaR hit rate by flag state (flag at the previous close):
+
+| Sample | Target | flag on: days | 1% | 2.5% | flag off: 1% | 2.5% |
+|---|---|---|---|---|---|---|
+| validation | E | 41 | 0.00% | 0.00% | 0.99% | 2.51% |
+| validation | F | 41 | 0.00% | 0.00% | 0.82% | 1.63% |
+| validation | USD | 41 | 0.00% | 0.00% | 1.11% | 2.45% |
+| holdout (not blind) | E | 113 | 2.65% | 3.54% | 1.47% | 3.00% |
+| holdout (not blind) | F | 113 | 0.88% | 0.88% | 0.70% | 1.15% |
+| holdout (not blind) | USD | 113 | 0.88% | 0.88% | 1.34% | 2.43% |
+
+## Pre-registered checks (§8.8)
+
+| # | Pass |
+|---|---|
+| A1 | yes |
+| A2 | yes |
+| A3 | yes |
+| A4 | yes |
+| B1 | NO |
+| B2 | yes |
+| B4 | yes |
+| C1 | yes |
+| C2 | yes |
+| C3 | yes |
+| C4 | NO |
+| C5 | NO |
+| C6 | yes |
+| D1 | NO |
+| D2 | yes |
+| D3 | yes |
+| B3 (finding) | jumps not supported |
+
