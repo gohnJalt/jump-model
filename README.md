@@ -135,3 +135,7 @@ Experiments resume from the cached `*.pkl` files in `experiments/results/`. Long
 - Only 4 listed stress events fall in validation, so differences between detection signals there are not significant.
 
 This is a research tool, not investment advice.
+
+## License
+
+[MIT](LICENSE). The license covers the code only. It does not cover vendor data (Bloomberg, Matriks), which is not in the repository.
