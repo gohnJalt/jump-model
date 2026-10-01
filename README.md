@@ -80,7 +80,7 @@ DESIGN.md          design, criteria and results log
 Python 3.13. Install the dependencies:
 
 ```bash
-pip install jax numpy scipy pandas statsmodels matplotlib pyarrow python-dotenv yfinance evds
+pip install -r requirements.txt
 ```
 
 API keys go in a git-ignored `.env` at the repo root:
