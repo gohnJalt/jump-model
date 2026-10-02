@@ -21,6 +21,7 @@
 | D10 | Stack and data | Python; FRED + EVDS keys; **Bloomberg + Matriks** | Paid data is needed for time-matched FX, CDS/EMBI, and intraday jump validation. |
 | D11 | Pre-float FX (1997 → 22 Feb 2001) | Deterministic indicator. **Inactive since D7 was revised** (no pre-float data in the sample). The code path stays tested. | A known, announced policy regime must not use up a latent state. |
 | D12 | Production VaR/ES model | **MSGJ1-t (2026-09-28)**; the flag stays on MSGJ1 | Passed §8.5. The switch came after the holdout, so its holdout result is not blind; this is stated in every daily report. |
+| D13 | Website "when stress was here before" table (2026-10-02) | Spells since 2013 with the stress percentile within ±5 of today's level (gaps ≤ 10 sessions merged); XU100 TRY/USD moves 1w/1m/3m after entry and whether the flag turned on within 21 sessions. **Uses 2020+ data**, labelled by period | Owner-approved exception to the holdout-exclusion rule for descriptive stats: the holdout was spent on 2026-09-28 and its returns are already published on the site. Descriptive only; not a test and not used for any model decision. |
 
 Items still open are listed in **§12**. Nothing marked *Proposed* is final until you sign off.
 
