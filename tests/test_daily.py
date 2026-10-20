@@ -17,7 +17,9 @@ hold = pickle.load(open(daily.RUNS["MSGJ1-t"][1], "rb"))
 i0h = int((d.index < daily.HOLD0).sum())
 nh = i0h + len(hold["dates"])
 ten = pickle.load(open(ROOT / "experiments/results/tenday.pkl", "rb"))  # §8.6 run
-for day in (i0h + R, i0h + R + 5, nh - 1):  # first day of a refit block, mid-block, last holdout day
+same = d.index[i0h:nh] == hold["dates"]  # Yahoo added 2026-09-22 after the holdout ran (data/ANOMALIES.md)
+last = nh - 1 if same.all() else i0h + same.argmin()  # last day whose inputs the holdout also saw
+for day in (i0h + R, i0h + R + 5, last):  # first day of a refit block, mid-block, last comparable holdout day
     f = daily.forecast(y[:day], st, fl)
     assert f["var_model"] == "MSGJ1-t"
     j = np.flatnonzero(ten["t"] == day)
