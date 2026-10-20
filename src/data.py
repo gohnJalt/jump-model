@@ -10,7 +10,7 @@ Run: python3 src/data.py [--refresh]
 """
 import os
 import sys
-from datetime import date
+from datetime import date, datetime
 from pathlib import Path
 
 import numpy as np
@@ -39,10 +39,20 @@ def _snapshot(name, fetch, refresh):
         return pd.read_parquet(have[-1])["close"]
     s = fetch().dropna().rename("close")
     s.index = pd.DatetimeIndex(s.index).tz_localize(None).normalize().rename("date")
-    path = RAW / f"{name}_{date.today():%Y%m%d}.parquet"
-    if not path.exists():  # never overwrite a raw snapshot
-        s.to_frame().to_parquet(path)
+    _keep(name, s)
     return s
+
+
+def _keep(name, s):
+    """Save s as a raw snapshot unless the latest one holds exactly this data. Never overwrites: a second change on
+    the same day (vendor backfill, a re-dropped CSV) gets a time suffix, so every series a build used is on disk."""
+    have = sorted(RAW.glob(f"{name}_*.parquet"))  # '_HHMMSS' sorts after '.parquet', so have[-1] is the newest
+    if have and pd.read_parquet(have[-1])["close"].equals(s):
+        return
+    path = RAW / f"{name}_{date.today():%Y%m%d}.parquet"
+    if path.exists():
+        path = path.with_stem(f"{path.stem}_{datetime.now():%H%M%S}")
+    s.to_frame().to_parquet(path)
 
 
 def _yf(ticker):
@@ -70,9 +80,7 @@ def _vendor(fname):
     df = pd.read_csv(p)
     s = pd.Series(pd.to_numeric(df.iloc[:, 1], errors="coerce").values,
                   index=pd.to_datetime(df.iloc[:, 0]).rename("date"), name="close").dropna().sort_index()
-    snap = RAW / f"bbg_{p.stem}_{date.today():%Y%m%d}.parquet"  # vendor files get overwritten; keep what we used
-    if not snap.exists():
-        s.to_frame().to_parquet(snap)
+    _keep(f"bbg_{p.stem}", s)  # vendor files get overwritten; keep what we used
     return s
 
 
