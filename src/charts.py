@@ -22,11 +22,12 @@ from scipy.special import logsumexp
 
 from event_scoring import flag, gjr_sd, pct_expanding
 from model import _terms, garch_sig, predictive
+from data import HOLDOUT as HOLD0
 from phase4_bench import ALPHAS, TARGETS, MixT
 
 HIST = ROOT / "reports/history.csv"
 REDO = 21
-HOLD0, LIVE0 = "2020-01-01", "2026-09-26"  # holdout opened on the 2026-09-25 data; later sessions are live
+LIVE0 = "2026-09-26"  # period label: holdout opened on the 2026-09-25 data; differs from daily.LIVE0 (§8.7 count start)
 
 
 def _block(p, y, b0, b1):
@@ -94,7 +95,7 @@ def _style():
     return plt
 
 
-def _periods(ax, h):
+def _periods(ax):
     """Shade the seen holdout and mark where live forecasting starts."""
     ax.axvspan(pd.Timestamp(HOLD0), pd.Timestamp(LIVE0), color=SHADE, lw=0, zorder=0)
     ax.axvline(pd.Timestamp(LIVE0), color=INK2, lw=0.8, ls="--")
@@ -119,7 +120,7 @@ def charts(h, f, out, tau):
     ax.scatter([last], [100 * h["pct"].iat[-1]], s=30, color=INK, zorder=5)
     ax.annotate(f"{last.date()}: {h['pct'].iat[-1]:.0%}", (last, 100 * h["pct"].iat[-1]), xytext=(-8, 8),
                 textcoords="offset points", ha="right", fontsize=8.5)
-    _periods(ax, h)
+    _periods(ax)
     ax.set_ylim(0, 105)
     ax.set_ylabel("percentile")
     ax.set_title("Stress gauge since 2013 (shaded: holdout, seen; dashed: live forecasting starts)")
@@ -140,7 +141,7 @@ def charts(h, f, out, tau):
                      f"black dot = tomorrow {100 * f[f'VaR0.01_{k}']:.2f}%", fontsize=9)
         ax.set_ylim(max(r.min(), -15) - 1, min(max(r.max(), 5), 10) + 1)  # KKM day (+26% USD) would squash the rest
         ax.set_ylabel("%")
-        _periods(ax, h)
+        _periods(ax)
     fig.tight_layout()
     fig.savefig(out / "var.png")
     plt.close(fig)
@@ -151,7 +152,7 @@ def charts(h, f, out, tau):
         ax.vlines(h.index[big], 0, h.loc[big, f"pj_{k}"], color=c, lw=1.1, label=name)
     for o in ev.onset:
         ax.axvline(o, color=INK2, lw=0.6, ls=":")
-    _periods(ax, h)
+    _periods(ax)
     ax.set_ylim(0, 1)
     ax.set_ylabel("P(jump | return)")
     ax.set_title("Probability that a session contained a jump (sessions with P ≥ 0.2; dotted: listed events)")
@@ -161,10 +162,26 @@ def charts(h, f, out, tau):
 
     fig, ax = plt.subplots(figsize=(9, 2.6))
     ax.plot(h.index, 100 * h["fx_share"], color=BLUE, lw=0.8)
-    _periods(ax, h)
+    _periods(ax)
     ax.set_ylim(0, 100)
     ax.set_ylabel("%")
     ax.set_title(f"Share of XU100-in-USD risk coming from USDTRY (latest {h['fx_share'].iat[-1]:.0%})")
     fig.savefig(out / "fx_share.png")
     plt.close(fig)
-    return ["stress.png", "var.png", "jumps.png", "fx_share.png"]
+
+    fig, axs = plt.subplots(1, 3, figsize=(9, 2.8))
+    for ax, k in zip(axs, ("E", "USD", "F")):
+        g, q = f["dist"][k], f["dist"][k]["q"]
+        x, y = 100 * g["x"], g["pdf"] / 100
+        ax.plot(x, y, color=BLUE, lw=1)
+        for a, c in ((0.025, AQUA), (0.01, ORANGE)):
+            ax.fill_between(x, y, where=x <= 100 * q[a], color=c, lw=0)
+        ax.axvline(100 * q[0.5], color=INK2, lw=0.7, ls=":")
+        ax.set_title(f"{lab[k] if k != 'F' else 'USDTRY'}: median {100 * q[0.5]:.2f}%", fontsize=9)
+        ax.set_xlabel("%")
+        ax.set_yticks([])
+    fig.suptitle("Next-session return density (orange: below 1% VaR, green: 1-2.5%; local report only)", fontsize=9.5)
+    fig.tight_layout()
+    fig.savefig(out / "distribution.png")
+    plt.close(fig)
+    return ["stress.png", "var.png", "jumps.png", "fx_share.png", "distribution.png"]

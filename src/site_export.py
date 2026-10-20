@@ -15,7 +15,6 @@ import numpy as np
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "src"))
 import daily  # noqa: E402  (live10, constants and caveats stay defined in one place)
 
 OUT = ROOT.parent / "bubble-methodology" / "site" / "risk.json"
@@ -23,12 +22,12 @@ SERIES = ("E", "F", "USD")
 A1, A25 = daily.ALPHAS
 
 
-def _pc(s):
-    return [None if not np.isfinite(v) else round(100 * float(v), 2) for v in s]
-
-
 def _p(s, nd=4):
     return [None if not np.isfinite(v) else round(float(v), nd) for v in s]
+
+
+def _pc(s):  # percent, 2 dp
+    return _p(100 * s, 2)
 
 
 def build():

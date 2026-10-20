@@ -14,7 +14,6 @@ from dataclasses import replace
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT / "experiments"))
 from phase4_bench import ALPHAS, LADDER, R, TARGETS, Mix, MixT, blocks
 from phase4_bench import load as load_val
@@ -24,6 +23,7 @@ import pandas as pd
 from event_scoring import gjr_sd
 from fit import default_sig_min, fit
 import charts
+from data import HOLDOUT as HOLD0
 from model import garch_sig, horizon, predictive
 from tenday import H, N, tail
 
@@ -36,7 +36,8 @@ REPORTS = ROOT / "reports"
 TAU, M = 0.925, 3
 TEN = ("E", "USD")  # §8.7: 10-day targets (USDTRY failed §8.6)
 LIVE0 = "2026-09-28"  # §8.7 live count start (the 2026-09-25 report used a stale USDTRY print)
-HOLD0 = "2020-01-01"
+LABEL = {"E": "XU100 (TRY)", "F": "USDTRY (long USD)", "USD": "XU100 (USD)"}
+QS = (0.01, 0.025, 0.05, 0.10, 0.25, 0.50, 0.75, 0.90, 0.95, 0.975, 0.99)  # local report only, not daily.csv / site
 CAVEATS = [  # DESIGN §13 holdout; keep in sync if the spec ever changes
     "VaR/ES switched to Student-t components (MSGJ1-t) on 2026-09-28, AFTER the holdout (DESIGN §8.5). On clean "
     "validation data it beat the Gaussian v1 on all three series, but not significantly; its holdout pass is not blind.",
@@ -85,12 +86,16 @@ def forecast(y, st, fl):
     sig = np.asarray(garch_sig(p, np.vstack([y, np.zeros((1, 2))])))[-1:]  # row n uses y up to n-1
     out = {"var_model": VAR_MODEL if "nu" in p else FLAG_MODEL, "nu": float(p.get("nu", np.inf)),
            "sd_E": sig[0, 0, 0], "sd_F": sig[0, 0, 1]}
+    dist = out["dist"] = {}
     for name, w in TARGETS.items():
         args = predictive(p, np.ones((1, 1)), w, sig)
         mix = MixT(*args, p["nu"]) if "nu" in p else Mix(*args)
         for a in ALPHAS:
             v = mix.var(a)
             out[f"VaR{a}_{name}"], out[f"ES{a}_{name}"] = float(v[0]), float(mix.es(a, v)[0])
+        q = {a: float(mix.var(a)[0]) for a in QS}
+        x = np.linspace(mix.var(0.001)[0], mix.var(0.999)[0], 400)
+        dist[name] = {"q": q, "p_up": 1 - float(mix.cdf(np.zeros(1))[0]), "x": x, "pdf": np.exp(mix.logpdf(x))}
     X = horizon(p, sig[0, 0], H, N, seed=n)  # seed = origin index, as in experiments/tenday.py
     for name in TEN:
         tt = tail(X @ TARGETS[name])
@@ -134,7 +139,6 @@ def live10(csv, d, live0=LIVE0):
 
 
 def ten(f, live):
-    label = {"E": "XU100 (TRY)", "USD": "XU100 (USD)"}
     L = ["## 10-day VaR / ES, sum of the next 10 sessions (log return, %; NOT blind, DESIGN §8.7)", "",
          "Selected after the §8.6 backtest was seen (USDTRY failed it and is not reported). The only blind test is "
          "live: a series is removed if, over its last 25 non-overlapping windows, it has >= 2 breaches at 1% or >= 3 "
@@ -142,23 +146,32 @@ def ten(f, live):
     for k in TEN:
         if live[k]["killed"]:
             continue
-        L += [f"| {label[k]} | {a:.1%} | {100 * f[f'VaR10_{a}_{k}']:.2f} | {100 * f[f'ES10_{a}_{k}']:.2f} |" for a in ALPHAS]
+        L += [f"| {LABEL[k]} | {a:.1%} | {100 * f[f'VaR10_{a}_{k}']:.2f} | {100 * f[f'ES10_{a}_{k}']:.2f} |" for a in ALPHAS]
     L.append("")
     for k in TEN:
         o = live[k]
-        L.append(f"- {label[k]}: **REMOVED by the live kill rule.**" if o["killed"] else
-                 f"- {label[k]} live score: {o['n']} completed window(s), breaches: "
+        L.append(f"- {LABEL[k]}: **REMOVED by the live kill rule.**" if o["killed"] else
+                 f"- {LABEL[k]} live score: {o['n']} completed window(s), breaches: "
                  + ", ".join(f"{sum(h[1] == a for h in o['hits'])} at {a:.1%}" for a in ALPHAS)
                  + (f", {o['missing']} window(s) with no report" if o["missing"] else "") + ".")
         L += [f"  - Review: the window from {day} lost {100 * loss:.2f}%, worse than 1.5 x ES 1%." for day, loss in o["big"]]
     return L + [""]
 
 
+def quantiles(dist):
+    return ["## 1-day return distribution for the next session (log return, %; NOT backtested beyond the lower tail)", "",
+            "Quantiles of the same MSGJ1-t predictive as the VaR above; USDTRY is the USDTRY return (lira weakening "
+            "= up). Only the 1% and 2.5% lower quantiles are backtested; the full density fails Berkowitz at 1% on F "
+            "and USD (DESIGN §13), so read the middle and upper tail as indicative. Local report only.", "",
+            "| Series | P(up) | " + " | ".join(f"{a:.1%}" for a in QS) + " |", "|---|" + "---|" * (len(QS) + 1),
+            *[f"| {LABEL[k]} | {v['p_up']:.0%} | " + " | ".join(f"{100 * v['q'][a]:.2f}" for a in QS) + " |"
+              for k, v in dist.items()], ""]
+
+
 def report(d, f, live, figs=()):
     day = d.index[-1].date()
     last = d.iloc[-1]
     rows = [(name, a, f[f"VaR{a}_{name}"], f[f"ES{a}_{name}"]) for name in TARGETS for a in ALPHAS]
-    label = {"E": "XU100 (TRY)", "F": "USDTRY (long USD)", "USD": "XU100 (USD)"}
     L = [f"# XU100 / USDTRY daily risk, as of the {day} close", "",
          f"**Stress flag: {'ON' if f['flag'] else 'off'}.** The XU100-in-USD volatility forecast is at the "
          f"{f['pct']:.1%} percentile of its history. It has been above {TAU:.1%} for {f['sessions_above']} session(s); "
@@ -167,8 +180,9 @@ def report(d, f, live, figs=()):
          "Lower tail = loss on a long position, as backtested. For USDTRY that is the loss from holding USD (lira "
          "strengthening); the lira-depreciation tail was not backtested and is not reported.", "",
          "| Series | Level | VaR | ES |", "|---|---|---|---|",
-         *[f"| {label[n]} | {a:.1%} | {100 * v:.2f} | {100 * e:.2f} |" for n, a, v, e in rows], "",
+         *[f"| {LABEL[n]} | {a:.1%} | {100 * v:.2f} | {100 * e:.2f} |" for n, a, v, e in rows], "",
          *ten(f, live),
+         *quantiles(f["dist"]),
          f"Forecast daily sd: XU100 TRY {100 * f['sd_E']:.2f}%, USDTRY {100 * f['sd_F']:.2f}%, XU100 USD {100 * f['sd_usd']:.2f}%.", "",
          "## Data", "",
          f"- Last session {day}. Sources: equity {last['eq_src']}, FX {last['fx_src']}."
@@ -185,7 +199,7 @@ def main():
     st, fl = update(y, d, VAR_MODEL), update(y, d, FLAG_MODEL)
     f = forecast(y, st, fl)
     (REPORTS / "daily").mkdir(parents=True, exist_ok=True)
-    row = pd.DataFrame([{"date": d.index[-1].date(), **{k: v for k, v in f.items()}}]).set_index("date")
+    row = pd.DataFrame([{"date": d.index[-1].date(), **{k: v for k, v in f.items() if k != "dist"}}]).set_index("date")
     csv = REPORTS / "daily.csv"
     if csv.exists():
         old = pd.read_csv(csv, index_col="date", parse_dates=False)
@@ -194,7 +208,7 @@ def main():
     day = d.index[-1].date()
     figs = charts.charts(charts.history(y, d, st, fl, TAU, M), f, REPORTS / "daily" / "charts" / str(day), TAU)
     txt = report(d, f, live10(row, d), figs)
-    (REPORTS / "daily" / f"{d.index[-1].date()}.md").write_text(txt)
+    (REPORTS / "daily" / f"{day}.md").write_text(txt)
     print(txt)
 
 
